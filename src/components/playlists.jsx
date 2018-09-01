@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import Slider from 'react-slick';
 import {FoldingCube} from 'better-react-spinkit';
 
+import Share from './share.jsx';
+
 import {GetPlaylists} from '../api/user.js';
 import {Init, Play} from '../api/player.js';
 
@@ -11,17 +13,22 @@ class Playlists extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      sharing: undefined
+    };
+
     this.onPlay = this.onPlay.bind(this);
   }
 
   onPlay(playlist) {
     Init().then((player) => {
-      Play(playlist.tracks.map(t => t.uri));
+      Play(playlist);
     });
   }
 
   render() {
     const {playlists} = this.props;
+    const {sharing} = this.state;
 
     let sliderSettings = {
       dots: true,
@@ -67,6 +74,10 @@ class Playlists extends Component {
             </a>
             <div className="album-block">
               <span className="album-block-title">{d.name}</span>
+              <p className="album-block-subtitle"><i className="fa fa-share fa-lg" onClick={() => this.setState({["sharing"]: d})} style={{
+              cursor: "pointer"
+            }}/>
+              </p>
             </div>
           </div>);
         });
@@ -106,6 +117,7 @@ class Playlists extends Component {
                   <span>Your tailored playlists</span>
                 </h2>
                 <p className="media-subtitle">Awesome songs that are new to your ears.</p>
+                {sharing && <Share image={sharing.images[0].url} playlist={sharing} onClose={() => this.setState({["sharing"]: undefined})}/>}
 
                 <div className="row">
                   {

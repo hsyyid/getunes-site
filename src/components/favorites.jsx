@@ -11,10 +11,6 @@ class Favorites extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: false
-    };
-
     this.onClick = this.onClick.bind(this);
   }
 
@@ -67,6 +63,7 @@ class Favorites extends Component {
                 }} onClick={() => this.onClick({
                   artistId: d.artists[0].id,
                   artistName: d.artists[0].name,
+                  image: d.album.images[0].url,
                   song: {
                     songId: d.id,
                     songName: d.name
@@ -98,7 +95,7 @@ class Favorites extends Component {
               <div className="album-overlay"></div>
               <div className="album-play-button" style={{
                   cursor: "pointer"
-                }} onClick={() => this.onClick({artistId: d.id, artistName: d.name})}>
+                }} onClick={() => this.onClick({artistId: d.id, artistName: d.name, image: d.images[0].url})}>
                 <i className="fa fa-play-circle fa-5x" style={{
                     color: "white"
                   }}/>
@@ -120,6 +117,7 @@ class Favorites extends Component {
         <img src={require("../images/particles/triangle_5.svg")} alt="triangle" className="particle pos_e" data-rellax-speed="4" data-rellax-percentage="0.5"/>
         <img src={require("../images/particles/circle_1.svg")} alt="circle" className="particle pos_a" data-rellax-speed="2" data-rellax-percentage="0.5"/>
         <img src={require("../images/particles/circle_2.svg")} alt="circle" className="particle pos_f" data-rellax-speed="3" data-rellax-percentage="0.5"/>
+
         <div className="container">
           <div className="row">
             <div className="col-md-12">

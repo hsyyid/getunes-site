@@ -71,21 +71,28 @@ export function Init() {
   });
 }
 
-export function Play(uris) {
-  let {id} = store.getState().player;
-  let {user} = store.getState().user;
+export function Play(playlist) {
+  let {playerMode} = store.getState().user;
 
-  if (id && user) {
-    fetch(`${endpoint}/access-token?identityId=${user.data.IdentityId}`).then(res => res.json()).then(token => {
-      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-        method: 'PUT',
-        body: JSON.stringify({uris}),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+  if (playerMode === "spotify") {
+    window.open(playlist.external_urls.spotify, '_blank');
+  } else {
+    let {id} = store.getState().player;
+    let {user} = store.getState().user;
+    let uris = playlist.tracks.map(t => t.uri);
+
+    if (id && user) {
+      fetch(`${endpoint}/access-token?identityId=${user.data.IdentityId}`).then(res => res.json()).then(token => {
+        fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({uris}),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
       });
-    });
+    }
   }
 };
 
@@ -138,43 +145,46 @@ export function RemoveTrack(ids) {
 }
 
 export function CreatePlaylist(seed) {
-  let {creating} = store.getState().player;
-  let {user} = store.getState().user;
+  return new Promise((resolve) => {
+    let {creating} = store.getState().player;
+    let {user} = store.getState().user;
 
-  if (user && user.data) {
-    if (!creating) {
-      store.dispatch({type: 'player/creating'});
-      NotificationManager.info("Creating your custom playlist...");
-
-      fetch(`${endpoint}/playlist`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({method: store.getState().user.discoveryMethod, num: 20, seed, identityId: user.data.IdentityId})
-      }).then(res => res.json()).then(res => {
+    if (user && user.data) {
+      if (!creating) {
         store.dispatch({type: 'player/creating'});
+        NotificationManager.info("Creating your custom playlist...");
 
-        if (res && res.length && res.length > 0) {
-          NotificationManager.success("Your custom playlist is ready!");
+        fetch(`${endpoint}/playlist`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({method: store.getState().user.discoveryMethod, num: 20, seed, identityId: user.data.IdentityId})
+        }).then(res => res.json()).then(res => {
+          store.dispatch({type: 'player/creating'});
 
-          // Reload the playlist list.
-          store.dispatch({type: 'user/playlists', playlists: undefined});
+          if (res && res.tracks && res.tracks.length && res.tracks.length > 0) {
+            NotificationManager.success("Your custom playlist is ready!");
+            resolve(res);
 
-          Init().then((player) => {
-            Play(res);
-          });
-        } else {
-          NotificationManager.error("Something went wrong!");
-        }
-      });
+            // Reload the playlist list.
+            store.dispatch({type: 'user/playlists', playlists: undefined});
+
+            Init().then((player) => {
+              Play(res);
+            });
+          } else {
+            NotificationManager.error("Something went wrong!");
+          }
+        });
+      } else {
+        NotificationManager.error("Already creating a playlist!");
+      }
     } else {
-      NotificationManager.error("Already creating a playlist!");
+      NotificationManager.error("Not signed in!");
     }
-  } else {
-    NotificationManager.error("Not signed in!");
-  }
+  });
 }
 
 export function reducer(state = {

@@ -39,10 +39,10 @@ export function LoginUser(code) {
       body: JSON.stringify({code})
     }).then(res => res.json()).then(res => {
       resolve(res);
+      store.dispatch({type: 'user/fetching', fetching: "login"});
 
       if (res && res.cognitoIdentity) {
         store.dispatch({type: 'user/profile', profile: res.profile});
-        store.dispatch({type: 'user/fetching', fetching: "login"});
         NotificationManager.success("Logged in!");
         AuthUser(res);
       } else {
@@ -166,12 +166,17 @@ export function SetDiscoveryMode(method) {
   store.dispatch({type: 'user/discoveryMethod', discoveryMethod: method});
 }
 
+export function SetPlayerMode(playerMode) {
+  store.dispatch({type: 'user/playerMode', playerMode});
+}
+
 export function reducer(state = {
   recent: undefined,
   user: undefined,
   profile: undefined,
   playlists: undefined,
   discoveryMethod: "spotify",
+  playerMode: "browser",
   favorites: undefined,
   fetching: {}
 }, action) {
@@ -192,6 +197,10 @@ export function reducer(state = {
     case 'user/discoveryMethod':
       newState = Object.assign({}, state);
       newState.discoveryMethod = action.discoveryMethod;
+      return newState;
+    case 'user/playerMode':
+      newState = Object.assign({}, state);
+      newState.playerMode = action.playerMode;
       return newState;
     case 'user/recent':
       newState = Object.assign({}, state);

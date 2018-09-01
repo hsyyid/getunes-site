@@ -3,7 +3,7 @@ import Avatar from 'react-avatar';
 import {Link} from 'react-router-dom';
 
 import {Init} from '../api/player.js';
-import {SetDiscoveryMode} from '../api/user.js';
+import {SetDiscoveryMode, SetPlayerMode} from '../api/user.js';
 import {getGreeting} from '../api/util.js';
 
 import {connect} from 'react-redux';
@@ -18,7 +18,8 @@ class Header extends Component {
     this.handleScroll = this.handleScroll.bind(this);
 
     this.state = {
-      open: false
+      open: false,
+      settingsOpen: false
     };
   }
 
@@ -45,8 +46,8 @@ class Header extends Component {
   }
 
   render() {
-    const {discoveryMethod, profile, login} = this.props;
-    const {open} = this.state;
+    const {discoveryMethod, playerMode, profile, login} = this.props;
+    const {open, settingsOpen} = this.state;
     let navbar = undefined;
 
     if (profile) {
@@ -55,8 +56,10 @@ class Header extends Component {
           <a href="#top">
             <i className="fa fa-play fa-lg" onClick={() => Init()}/></a>
         </li>
-        <li className="animated dropdown">
-          <a className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{
+        <li className={`animated dropdown ${settingsOpen && "open"}`}>
+          <a onClick={() => this.setState({
+              ["settingsOpen"]: !settingsOpen
+            })} className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={{
               cursor: "pointer"
             }}>
             <i className="fa fa-cog fa-lg"/>
@@ -64,14 +67,6 @@ class Header extends Component {
           <ul className="dropdown-menu">
             <li>
               <h6 className="dropdown-header">Discovery Mode</h6>
-            </li>
-            <li>
-              <a onClick={() => SetDiscoveryMode("related")} style={{
-                  color: discoveryMethod === "related"
-                    ? "#00BA5F"
-                    : undefined,
-                  cursor: "pointer"
-                }}>Related Songs</a>
             </li>
             <li>
               <a onClick={() => SetDiscoveryMode("spotify")} style={{
@@ -82,12 +77,39 @@ class Header extends Component {
                 }}>Spotify</a>
             </li>
             <li>
+              <a onClick={() => SetDiscoveryMode("related")} style={{
+                  color: discoveryMethod === "related"
+                    ? "#00BA5F"
+                    : undefined,
+                  cursor: "pointer"
+                }}>Related Songs</a>
+            </li>
+            <li>
               <a onClick={() => SetDiscoveryMode("other")} style={{
                   color: discoveryMethod === "other"
                     ? "#00BA5F"
                     : undefined,
                   cursor: "pointer"
                 }}>Artist Associated</a>
+            </li>
+            <li>
+              <h6 className="dropdown-header">Player Mode</h6>
+            </li>
+            <li>
+              <a onClick={() => SetPlayerMode("spotify")} style={{
+                  color: playerMode === "spotify"
+                    ? "#00BA5F"
+                    : undefined,
+                  cursor: "pointer"
+                }}>Spotify</a>
+            </li>
+            <li>
+              <a onClick={() => SetPlayerMode("browser")} style={{
+                  color: playerMode === "browser"
+                    ? "#00BA5F"
+                    : undefined,
+                  cursor: "pointer"
+                }}>Browser</a>
             </li>
           </ul>
         </li>
@@ -182,7 +204,7 @@ class Header extends Component {
 }
 
 const mapStateToProps = function(store) {
-  return {discoveryMethod: store.user.discoveryMethod, profile: store.user.profile, login: store.user.fetching.login}
+  return {discoveryMethod: store.user.discoveryMethod, playerMode: store.user.playerMode, profile: store.user.profile, login: store.user.fetching.login}
 }
 
 export default connect(mapStateToProps)(Header)
