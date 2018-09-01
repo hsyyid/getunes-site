@@ -4,6 +4,10 @@ import {connect} from 'react-redux';
 import {FoldingCube} from 'better-react-spinkit';
 import {CreatePlaylist} from '../api/player.js';
 
+const endpoint = process.env.NODE_ENV === 'development'
+  ? "http://localhost:3001"
+  : "https://2kx14y75mf.execute-api.us-east-2.amazonaws.com/latest";
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +46,7 @@ class Search extends Component {
     if (user) {
       this.setState({["isSearching"]: true});
 
-      fetch(`http://localhost:3001/search?q=${search}&type=${type}&identityId=${user.data.IdentityId}`, {
+      fetch(`${endpoint}/search?q=${search}&type=${type}&identityId=${user.data.IdentityId}`, {
         method: "GET",
         headers: {
           "Accept": "application/json"
