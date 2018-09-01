@@ -1,0 +1,32 @@
+{
+  "name": "getunes",
+  "version": "0.1.0",
+  "homepage": "https://getunes.github.io",
+  "private": true,
+  "dependencies": {
+    "aws-amplify": "^1.0.8",
+    "better-react-spinkit": "^2.0.4",
+    "react": "^16.4.2",
+    "react-avatar": "^3.2.0",
+    "react-dom": "^16.4.2",
+    "react-notifications": "^1.4.3",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-slick": "^0.23.1",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.2.0",
+    "react-scripts": "1.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build"
+  }
+}
