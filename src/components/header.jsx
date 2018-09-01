@@ -119,9 +119,9 @@ class Header extends Component {
       navbar = <ul className="nav navbar-nav navbar-right toggle-menu">
         {
           !login && <li className="animated">
-              <a href={`https://accounts.spotify.com/en/authorize?client_id=3dc46b1fb52047cfba916da8c599d014&response_type=code&redirect_uri=http:%2F%2F${process.env.NODE_ENV === 'development'
-                  ? "localhost:3000"
-                  : "getunes.github.io"}%2Fauth&scope=user-read-private%20user-read-email%20%20playlist-read-collaborative%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20%20user-read-currently-playing%20user-modify-playback-state%20user-read-playback-state%20%20user-top-read%20user-read-recently-played%20%20user-library-read%20user-library-modify%20streaming%20user-read-birthdate%20app-remote-control`}>
+              <a href={`https://accounts.spotify.com/en/authorize?client_id=3dc46b1fb52047cfba916da8c599d014&response_type=code&redirect_uri=${process.env.NODE_ENV === 'development'
+                  ? "http:%2F%2Flocalhost:3000"
+                  : "https:%2F%2Fgetunes.github.io"}%2Fauth&scope=user-read-private%20user-read-email%20%20playlist-read-collaborative%20playlist-modify-public%20playlist-read-private%20playlist-modify-private%20%20user-read-currently-playing%20user-modify-playback-state%20user-read-playback-state%20%20user-top-read%20user-read-recently-played%20%20user-library-read%20user-library-modify%20streaming%20user-read-birthdate%20app-remote-control`}>
                 {"Login "}
                 <i className="fa fa-spotify fa-lg"/>
               </a>
