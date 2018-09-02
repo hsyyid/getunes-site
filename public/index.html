@@ -2,14 +2,25 @@
 <html lang="en">
 
 <head>
+  <!-- Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#000000">
 
+  <!-- Description + Keywords -->
+  <meta name="keywords" content="getunes,spotify,music,new music,find,find new music,playlist,playlist builder,custom playlist">
+  <meta name="description" content="New music. All day, every day.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://getunes.github.io">
+  <meta property="og:site_name" content="getunes">
+  <meta property="og:description" content="New music. All day, every day.">
+  <meta property="og:locale" content="en-US">
+
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
 
-  <!-- fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900%7CMontserrat:400,500,700" rel="stylesheet" type="text/css">
 
   <!-- CSS Dependencies (includes Fonts) -->
@@ -18,12 +29,8 @@
   <link href="./css/plugins/plugins-combined.css" rel="stylesheet">
 
   <!-- Scripts -->
+  <!-- Spotify -->
   <script src="https://sdk.scdn.co/spotify-player.js"></script>
-
-  <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <!-- Magnific Popup core JS file -->
-  <script src="./js/plugins/magnific-popup.min.js"></script>
 
   <script>
     window.onSpotifyWebPlaybackSDKReady = () => {
@@ -31,7 +38,28 @@
     };
   </script>
 
-  <title>Getunes</title>
+  <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <!-- Magnific Popup core JS file -->
+  <script src="./js/plugins/magnific-popup.min.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110681240-3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-110681240-3');
+  </script>
+
+  <!-- Sentry -->
+  <script src="https://cdn.ravenjs.com/3.26.4/raven.min.js" crossorigin="anonymous"></script>
+
+  <title>getunes</title>
 </head>
 
 <body>

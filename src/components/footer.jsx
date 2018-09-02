@@ -12,12 +12,7 @@ export default class Footer extends Component {
               <div className="social-icons">
                 <ul>
                   <li>
-                    <a href="#">
-                      <span className="flaticon-social-1 flaticon-sm-shape shape1"></span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
+                    <a href="https://twitter.com/getunesio">
                       <span className="flaticon-social-media-1 flaticon-sm-shape shape2"></span>
                     </a>
                   </li>
