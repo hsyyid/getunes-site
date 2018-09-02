@@ -17,7 +17,7 @@ import store from './store';
 import "./css/style.css";
 import 'react-notifications/lib/notifications.css';
 
-if (process.env.NODE_ENV !== 'development') 
+if (process.env.NODE_ENV !== 'development')
   window.Raven.config('https://ca392710bbc64d6ca18a8c58d8389a64@sentry.io/1272999').install();
 
 ReactDOM.render(<Provider store={store}>
@@ -34,4 +34,4 @@ ReactDOM.render(<Provider store={store}>
     </div>
   </Router>
 </Provider>, document.getElementById('root'));
-registerServiceWorker();
+// registerServiceWorker();
