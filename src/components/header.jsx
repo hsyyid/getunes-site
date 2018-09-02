@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Avatar from 'react-avatar';
 import {Link} from 'react-router-dom';
 
-import {Init} from '../api/player.js';
 import {SetDiscoveryMode, SetPlayerMode} from '../api/user.js';
 import {getGreeting} from '../api/util.js';
 
@@ -52,10 +51,6 @@ class Header extends Component {
 
     if (profile) {
       navbar = <ul className="nav navbar-nav navbar-right toggle-menu">
-        <li className="animated">
-          <a href="#top">
-            <i className="fa fa-play fa-lg" onClick={() => Init()}/></a>
-        </li>
         <li className={`animated dropdown ${settingsOpen && "open"}`}>
           <a onClick={() => this.setState({
               ["settingsOpen"]: !settingsOpen
@@ -67,14 +62,6 @@ class Header extends Component {
           <ul className="dropdown-menu">
             <li>
               <h6 className="dropdown-header">Discovery Mode</h6>
-            </li>
-            <li>
-              <a onClick={() => SetDiscoveryMode("spotify")} style={{
-                  color: discoveryMethod === "spotify"
-                    ? "#00BA5F"
-                    : undefined,
-                  cursor: "pointer"
-                }}>Spotify</a>
             </li>
             <li>
               <a onClick={() => SetDiscoveryMode("related")} style={{
@@ -93,15 +80,15 @@ class Header extends Component {
                 }}>Artist Associated</a>
             </li>
             <li>
-              <h6 className="dropdown-header">Player Mode</h6>
-            </li>
-            <li>
-              <a onClick={() => SetPlayerMode("spotify")} style={{
-                  color: playerMode === "spotify"
+              <a onClick={() => SetDiscoveryMode("spotify")} style={{
+                  color: discoveryMethod === "spotify"
                     ? "#00BA5F"
                     : undefined,
                   cursor: "pointer"
                 }}>Spotify</a>
+            </li>
+            <li>
+              <h6 className="dropdown-header">Player Mode</h6>
             </li>
             <li>
               <a onClick={() => SetPlayerMode("browser")} style={{
@@ -110,6 +97,14 @@ class Header extends Component {
                     : undefined,
                   cursor: "pointer"
                 }}>Browser</a>
+            </li>
+            <li>
+              <a onClick={() => SetPlayerMode("spotify")} style={{
+                  color: playerMode === "spotify"
+                    ? "#00BA5F"
+                    : undefined,
+                  cursor: "pointer"
+                }}>Spotify</a>
             </li>
           </ul>
         </li>

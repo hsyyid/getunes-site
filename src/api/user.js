@@ -175,7 +175,7 @@ export function reducer(state = {
   user: undefined,
   profile: undefined,
   playlists: undefined,
-  discoveryMethod: "spotify",
+  discoveryMethod: "related",
   playerMode: "browser",
   favorites: undefined,
   fetching: {}

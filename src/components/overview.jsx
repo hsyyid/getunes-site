@@ -16,8 +16,53 @@ export default class Overview extends Component {
           <div className="band-wrap">
             <div className="col-md-8 col-md-pull">
               <h2 className="section-title">What's getunes?</h2>
-              <p className="section-subtitle">It was during a winter season that the idea of Duotone was conceived. Lewis had called in John to sing a jingle for him.</p>
-              <p className="section-subtitle-thin">The restless Lewis began crooning something while strumming on his guitar, John felt inspired to jam with an alaap, and the result: the seamless fusion of Eastern and Western sounds that has become the quintessential characteristic of the Raaga.</p>
+              <p className="section-subtitle" style={{
+                  fontWeight: 400
+                }}>getunes finds
+                <strong style={{
+                    fontWeight: 700
+                  }}>{" new "}</strong>
+                music you'll love.
+              </p>
+              <p className="section-subtitle-thin">
+                getunes uses the power of Spotify to find new music just for you. It will
+                <strong style={{
+                    fontWeight: 700
+                  }}>{" never"}
+                </strong>:
+                <ul>
+                  <li>
+                    recommend the same song twice
+                  </li>
+                  <li>
+                    recommend a song already in your library
+                  </li>
+                </ul>
+              </p>
+              <p className="section-subtitle-thin">
+                getunes utilizes three methods of finding music:
+                <ul>
+                  <li>
+                    <strong style={{
+                        fontWeight: 500
+                      }}>{"Related Songs"}
+                    </strong>: finds public playlists created by other users with similar music taste
+                  </li>
+                  <li>
+                    <strong style={{
+                        fontWeight: 500
+                      }}>{"Artist Associated"}
+                    </strong>: finds albums the artist is associated with
+                  </li>
+
+                  <li>
+                    <strong style={{
+                        fontWeight: 500
+                      }}>{"Spotify"}
+                    </strong>: gets personalized recommendations using Spotify's API
+                  </li>
+                </ul>
+              </p>
             </div>
           </div>
         </div>

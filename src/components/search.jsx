@@ -16,7 +16,8 @@ class Search extends Component {
       search: undefined,
       searchResults: undefined,
       type: "Artist",
-      isSearching: false
+      isSearching: false,
+      open: false
     };
 
     this.onSearch = this.onSearch.bind(this);
@@ -59,7 +60,7 @@ class Search extends Component {
   }
 
   render() {
-    const {searchResults, isSearching, type} = this.state;
+    const {searchResults, isSearching, type, open} = this.state;
     const types = ["Track", "Album", "Artist"];
     let results = [];
     let unused = [];
@@ -149,11 +150,14 @@ class Search extends Component {
                 }}/>
               <div className="navbar navbar-poop tab-position">
                 <ul className="nav navbar-nav nav-tabs">
-                  <li className="tabset-left active dropdown" role="presentation" style={{
+                  <li className={`tabset-left active dropdown  ${open && "open"}`} role="presentation" style={{
                       borderRadius: "40px",
                       marginRight: "50px"
                     }}>
-                    <a className="dropdown-toggle" data-toggle="dropdown" aria-haspopup={true} aria-expanded={false}>
+
+                    <a className="dropdown-toggle" onClick={() => this.setState({
+                        ["open"]: !open
+                      })} data-toggle="dropdown" aria-haspopup={true} aria-expanded={false}>
                       {type + " "}
                       <i className="fa fa-caret-down fa-lg"/>
                     </a>
