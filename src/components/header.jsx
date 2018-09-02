@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Avatar from 'react-avatar';
 import {Link} from 'react-router-dom';
 
-import {SetDiscoveryMode, SetPlayerMode} from '../api/user.js';
+import {SetDiscoveryMode, SetPlayerMode, LogOut} from '../api/user.js';
 import {getGreeting} from '../api/util.js';
 
 import {connect} from 'react-redux';
@@ -124,8 +124,7 @@ class Header extends Component {
 
           <ul className="dropdown-menu">
             <li>
-              <a /*onClick={() => TODO: Log out}*/
-                style={{
+              <a onClick={() => LogOut()} style={{
                   cursor: "pointer"
                 }}>Log out</a>
             </li>

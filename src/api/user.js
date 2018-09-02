@@ -52,6 +52,10 @@ export function LoginUser(code) {
   });
 }
 
+export function LogOut() {
+  store.dispatch({type: 'user/logout'});
+}
+
 export function AuthUser(result) {
   Auth.federatedSignIn('developer', {
     token: result.cognitoIdentity.Token,
@@ -182,6 +186,17 @@ export function reducer(state = {
 }, action) {
   let newState;
   switch (action.type) {
+    case 'user/logout':
+      return {
+        recent: undefined,
+        user: undefined,
+        profile: undefined,
+        playlists: undefined,
+        discoveryMethod: "related",
+        playerMode: "browser",
+        favorites: undefined,
+        fetching: {}
+      };
     case 'user/user':
       newState = Object.assign({}, state);
       newState.user = action.user;
